@@ -32,8 +32,17 @@ namespace vm86
 		return two;
 	}
 
+	void removeLeadingWhitespace(std::string& str)
+	{
+		while (str.substr(0, 1) == " ")
+		{
+			str.erase(0, 1);
+		}
+	}
+
 	std::unique_ptr<Instruction> Instruction::fromAssembly(std::string line)
 	{
+		removeLeadingWhitespace(line);
 		size_t comment_off = line.find(";");
 		if (comment_off == std::string::npos)
 		{
@@ -67,10 +76,7 @@ namespace vm86
 		{
 			ins = line.substr(0, arg_off);
 			arg = line.substr(arg_off + 1);
-			while (arg.substr(0, 1) == " ")
-			{
-				arg.erase(0, 1);
-			}
+			removeLeadingWhitespace(arg);
 			const size_t last_char = arg.size() - 1;
 			if (arg.substr(last_char, 1) == "\r")
 			{

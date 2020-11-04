@@ -152,7 +152,7 @@ int main()
 	testAssemblyEndsInBytecode("C3", "ret");
 
 	// Test spacing:
-	testAssemblyEndsInBytecode("56", "push     rsi");
+	testAssemblyEndsInBytecode("56", "    push     rsi    ");
 
 	// Test comments:
 	testAssemblyEndsInBytecode("48 89 C8", "mov rax, rcx ; copying rax from rcx");
