@@ -6,5 +6,5 @@
 
 namespace vm86
 {
-	[[nodiscard]] extern std::string bytecodeToHexString(std::vector<uint8_t>& bytecode);
+	[[nodiscard]] extern std::string bytecodeToHexString(const std::vector<uint8_t>& bytecode);
 }

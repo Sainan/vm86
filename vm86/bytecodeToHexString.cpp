@@ -6,7 +6,7 @@
 
 namespace vm86
 {
-	std::string bytecodeToHexString(std::vector<uint8_t>& bytecode)
+	std::string bytecodeToHexString(const std::vector<uint8_t>& bytecode)
 	{
 		std::stringstream ss;
 		auto i = bytecode.begin();
