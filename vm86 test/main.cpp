@@ -145,7 +145,8 @@ int main()
 	testAssemblyBytecodeParity("48 89 D1", "mov rcx, rdx");
 
 	// Test rax, also against host:
-	testRax("mov rax, rcx\nretn", 0x1337CAFEBABE1337, 0x1337CAFEBABE1337);
+	testRax("mov rax, rcx\nretn", 0x1337CAFEBABE1337, 0x1337CAFEBABE1337, 0);
+	testRax("mov rax, rdx\nretn", 0x1337CAFEBABE1337, 0, 0x1337CAFEBABE1337);
 
 	// Test aliases:
 	testAssemblyEndsInBytecode("C3", "ret");
