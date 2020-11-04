@@ -2,8 +2,13 @@
 
 namespace vm86
 {
-	Program::Program()
+	Program::Program() noexcept
 		: instructions(0)
+	{
+	}
+
+	Program::Program(Program&& b) noexcept
+		: instructions(std::move(b.instructions))
 	{
 	}
 

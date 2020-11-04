@@ -16,7 +16,9 @@ namespace vm86
 	public:
 		std::vector<std::unique_ptr<Instruction>> instructions;
 
-		explicit Program();
+		explicit Program() noexcept;
+		explicit Program(const Program& b) = delete;
+		Program(Program&& b) noexcept;
 
 		[[nodiscard]] static Program fromAssembly(std::string str);
 
