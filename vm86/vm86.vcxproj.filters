@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Instruction.hpp" />
+    <ClInclude Include="Program.hpp" />
+    <ClInclude Include="bytecodeToHexString.hpp" />
+    <ClInclude Include="InstructionPush.hpp" />
+    <ClInclude Include="InstructionPop.hpp" />
+    <ClInclude Include="RegisterId.hpp" />
+    <ClInclude Include="Register.hpp" />
+    <ClInclude Include="RegisterAccess.hpp" />
+    <ClInclude Include="InstructionRetn.hpp" />
+    <ClInclude Include="InstructionMovRegReg.hpp" />
+    <ClInclude Include="VirtualMachine.hpp" />
+    <ClInclude Include="fwddecl.hpp" />
+    <ClInclude Include="VirtualMachineStandard.hpp" />
+    <ClInclude Include="VirtualMachineBytecode.hpp" />
+    <ClInclude Include="executeBytecodeOnHostMachine.hpp" />
+    <ClInclude Include="WindowsExecutableFile.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Instruction.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="bytecodeToHexString.cpp" />
+    <ClCompile Include="InstructionPush.cpp" />
+    <ClCompile Include="InstructionPop.cpp" />
+    <ClCompile Include="Register.cpp" />
+    <ClCompile Include="InstructionRetn.cpp" />
+    <ClCompile Include="InstructionMovRegReg.cpp" />
+    <ClCompile Include="VirtualMachine.cpp" />
+    <ClCompile Include="VirtualMachineStandard.cpp" />
+    <ClCompile Include="VirtualMachineBytecode.cpp" />
+    <ClCompile Include="executeBytecodeOnHostMachine.cpp" />
+    <ClCompile Include="WindowsExecutableFile.cpp" />
+  </ItemGroup>
+</Project>
