@@ -25,7 +25,6 @@ using namespace vm86;
 // Static vars
 static int success_tally;
 static int error_tally;
-static int total_tally;
 
 // Util functions
 [[nodiscard]] std::string getAssemblyNoTrailingNewline(Program& p)
@@ -58,7 +57,6 @@ std::vector<uint8_t> testAssemblyEndsInBytecode(const char* const bytecode_hex, 
 		std::cout << e.what() << std::endl;
 		error_tally++;
 	}
-	total_tally++;
 	return bytecode;
 }
 
@@ -83,7 +81,6 @@ void testBytecodeEndsInAssembly(const std::vector<uint8_t>& bytecode, const char
 		std::cout << e.what() << std::endl;
 		error_tally++;
 	}
-	total_tally++;
 }
 
 void testAssemblyBytecodeParity(const char* const bytecode_hex, const char* const assembly)
@@ -109,7 +106,6 @@ void testRax(const char* const assembly, const regvalue_t expected_rax, const re
 			error_tally++;
 			std::cout << "'" << assembly << "' in VM with (" << rcx << ", " << rdx << ") resulted in " << rax << ", expected " << expected_rax << std::endl;
 		}
-		total_tally++;
 	}
 	const auto bytecode = vm.getBytecode();
 	{
@@ -123,7 +119,6 @@ void testRax(const char* const assembly, const regvalue_t expected_rax, const re
 			error_tally++;
 			std::cout << "'" << assembly << "' on host with (" << rcx << ", " << rdx << ") resulted in " << rax << ", expected " << expected_rax << std::endl;
 		}
-		total_tally++;
 	}
 	testBytecodeEndsInAssembly(bytecode, assembly);
 }
@@ -133,7 +128,6 @@ int main()
 	// Init:
 	success_tally = 0;
 	error_tally = 0;
-	total_tally = 0;
 
 	// Test against truth:
 	testAssemblyBytecodeParity("C3", "retn");
@@ -163,7 +157,7 @@ int main()
 	testAssemblyEndsInBytecode("48 89 C8", "mov rax, rcx ; copying rax from rcx");
 
 	// Results:
-	std::cout << total_tally << " assertions: " << success_tally << " succeeded, " << error_tally << " failed" << std::endl;
+	std::cout << (success_tally + error_tally) << " assertions: " << success_tally << " succeeded, " << error_tally << " failed" << std::endl;
 
 	return error_tally;
 }
