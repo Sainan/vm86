@@ -127,12 +127,9 @@ namespace vm86
 	{
 		if (index >= getNumberOfDataDirectories())
 		{
-			throw std::overflow_error(std::string("Can't access data directory at index ").append(std::to_string(index)).append(" if there's only ").append(std::to_string(getNumberOfDataDirectories())).append(" data directories"));
+			throw std::overflow_error(std::string("Can't access data directory at index ").append(std::to_string(index)).append(" because there's only ").append(std::to_string(getNumberOfDataDirectories())).append(" data directories"));
 		}
-		file.seekg(COFF_END + (getPeHeaderSignature() == PEHEADERSIG_32BIT ? 96 : 112) + ((std::streamoff)index * 8));
-		DataDirectoryRvaAndSize dataDirectoryRvaAndSize;
-		file.read((char*)&dataDirectoryRvaAndSize, 8);
-		return dataDirectoryRvaAndSize;
+		return readFromFileOffset<DataDirectoryRvaAndSize>(PE_BASE + (getPeHeaderSignature() == PEHEADERSIG_32BIT ? 96 : 112) + ((std::streamoff)index * 8));
 	}
 
 #define SEC_BASE    getSectionOffsetInFile(section)
