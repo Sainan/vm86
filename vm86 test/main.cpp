@@ -147,6 +147,8 @@ int main()
 	// Test rax, also against host:
 	testRax("mov rax, rcx\nretn", 0x1337CAFEBABE1337, 0x1337CAFEBABE1337, 0);
 	testRax("mov rax, rdx\nretn", 0x1337CAFEBABE1337, 0, 0x1337CAFEBABE1337);
+	testRax("push rcx\npop rax\nretn", 0x1337CAFEBABE1337, 0x1337CAFEBABE1337, 0);
+	testRax("push rdx\npop rax\nretn", 0x1337CAFEBABE1337, 0, 0x1337CAFEBABE1337);
 
 	// Test aliases:
 	testAssemblyEndsInBytecode("C3", "ret");

@@ -90,11 +90,11 @@ namespace vm86
 		}
 		if (ins == "push")
 		{
-			return std::make_unique<InstructionPush>(Register::fromName(arg).id);
+			return std::make_unique<InstructionPush>(Register::fromName(arg));
 		}
 		if (ins == "pop")
 		{
-			return std::make_unique<InstructionPop>(Register::fromName(arg).id);
+			return std::make_unique<InstructionPop>(Register::fromName(arg));
 		}
 		if (ins == "ret" || ins == "retn")
 		{
@@ -147,11 +147,11 @@ namespace vm86
 		{
 			if ((val & 0x58) == 0x58)
 			{
-				return std::make_unique<InstructionPop>((RegisterId)(val & 0b111));
+				return std::make_unique<InstructionPop>(Register((RegisterId)(val & 0b111)));
 			}
 			else
 			{
-				return std::make_unique<InstructionPush>((RegisterId)(val & 0b111));
+				return std::make_unique<InstructionPush>(Register((RegisterId)(val & 0b111)));
 			}
 		}
 		std::stringstream ss;

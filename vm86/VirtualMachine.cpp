@@ -88,4 +88,16 @@ namespace vm86
 		}
 		return val;
 	}
+
+	void VirtualMachine::push(regvalue_t val)
+	{
+		stack.emplace(val);
+	}
+
+	regvalue_t VirtualMachine::pop()
+	{
+		regvalue_t val = stack.top();
+		stack.pop();
+		return val;
+	}
 }

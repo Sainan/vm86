@@ -2,17 +2,17 @@
 
 #include "Instruction.hpp"
 
-#include "RegisterId.hpp"
+#include "Register.hpp"
 
 namespace vm86
 {
 	class InstructionPop : public Instruction
 	{
 	private:
-		RegisterId dst;
+		Register dst;
 
 	public:
-		explicit InstructionPop(RegisterId dst);
+		explicit InstructionPop(Register dst);
 
 		[[nodiscard]] std::string getAssembly() const override;
 

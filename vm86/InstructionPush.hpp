@@ -2,17 +2,17 @@
 
 #include "Instruction.hpp"
 
-#include "RegisterId.hpp"
+#include "Register.hpp"
 
 namespace vm86
 {
 	class InstructionPush : public Instruction
 	{
 	private:
-		RegisterId src;
+		Register src;
 
 	public:
-		explicit InstructionPush(RegisterId src);
+		explicit InstructionPush(Register src);
 
 		[[nodiscard]] std::string getAssembly() const override;
 

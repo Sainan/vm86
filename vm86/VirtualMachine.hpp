@@ -4,6 +4,7 @@
 
 #include <array>
 #include <cstdint>
+#include <stack>
 
 #include "RegisterId.hpp"
 
@@ -16,6 +17,8 @@ namespace vm86
 
 		std::array<regvalue_t, NUM_REGISTERS> registers;
 
+		std::stack<regvalue_t> stack;
+
 		explicit VirtualMachine() noexcept;
 
 		[[nodiscard]] virtual Instruction* getInstruction() = 0; // Gets the instruction that the instruction pointer points to
@@ -25,5 +28,8 @@ namespace vm86
 
 		void write(const Register& dst, regvalue_t val);
 		[[nodiscard]] regvalue_t read(const Register& src) const;
+
+		void push(regvalue_t val);
+		regvalue_t pop();
 	};
 }

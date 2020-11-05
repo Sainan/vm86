@@ -1,22 +1,22 @@
 #include "InstructionPop.hpp"
 
-#include "Register.hpp"
+#include "VirtualMachine.hpp"
 
 namespace vm86
 {
-	InstructionPop::InstructionPop(RegisterId dst)
+	InstructionPop::InstructionPop(Register dst)
 		: dst(dst)
 	{
 	}
 
 	std::string InstructionPop::getAssembly() const
 	{
-		return std::string("pop ").append(Register(dst).getName());
+		return std::string("pop ").append(dst.getName());
 	}
 
 	void InstructionPop::getBytecode(std::vector<uint8_t>& bytecode) const
 	{
-		bytecode.emplace_back(0x58 | dst);
+		bytecode.emplace_back(0x58 | dst.getBytecodeValue());
 	}
 
 	uint8_t InstructionPop::getBytecodeLength() const
@@ -26,6 +26,6 @@ namespace vm86
 
 	void InstructionPop::executeInVirtualMachine(VirtualMachine& vm) const
 	{
-		// TODO
+		vm.write(dst, vm.pop());
 	}
 }
