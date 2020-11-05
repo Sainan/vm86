@@ -27,7 +27,7 @@ namespace vm86
 		if (cached_instruction_pointer != instruction_pointer)
 		{
 			auto i = bytecode.begin();
-			i += instruction_pointer;
+			i += (std::vector<uint8_t>::difference_type)instruction_pointer;
 			cached_instruction_pointer = instruction_pointer;
 			cached_instruction = std::move(Instruction::fromBytecode(bytecode, i));
 		}
