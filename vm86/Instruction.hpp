@@ -16,6 +16,9 @@ namespace vm86
 
 		[[nodiscard]] static std::unique_ptr<Instruction> fromBytecode(const std::vector<uint8_t>& bytecode);
 		[[nodiscard]] static std::unique_ptr<Instruction> fromBytecode(const std::vector<uint8_t>& bytecode, std::vector<uint8_t>::const_iterator& i);
+	private:
+		[[nodiscard]] static std::unique_ptr<Instruction> fromBytecode(const std::vector<uint8_t>& bytecode, std::vector<uint8_t>::const_iterator& i, const bool long_mode);
+	public:
 
 		[[nodiscard]] virtual std::string getAssembly() const = 0;
 

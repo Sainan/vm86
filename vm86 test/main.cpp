@@ -139,6 +139,7 @@ int main()
 	testAssemblyBytecodeParity("5D", "pop rbp");
 	testAssemblyBytecodeParity("5F", "pop rdi");
 	testAssemblyBytecodeParity("5E", "pop rsi");
+	testAssemblyBytecodeParity("89 C8", "mov eax, ecx");
 	testAssemblyBytecodeParity("48 89 C8", "mov rax, rcx");
 	testAssemblyBytecodeParity("48 89 C1", "mov rcx, rax");
 	testAssemblyBytecodeParity("48 89 CA", "mov rdx, rcx");

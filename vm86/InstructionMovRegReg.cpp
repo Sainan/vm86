@@ -7,6 +7,7 @@ namespace vm86
 	InstructionMovRegReg::InstructionMovRegReg(Register src, Register dst)
 		: src(src), dst(dst)
 	{
+		src.assertAccessBitsAreSameAs(dst);
 	}
 
 	std::string InstructionMovRegReg::getAssembly() const
@@ -16,14 +17,17 @@ namespace vm86
 
 	void InstructionMovRegReg::getBytecode(std::vector<uint8_t>& bytecode) const
 	{
-		bytecode.emplace_back(0x48);
+		if (src.getAccessBits() > 32)
+		{
+			bytecode.emplace_back(0x48);
+		}
 		bytecode.emplace_back(0x89);
 		bytecode.emplace_back(0b11000000 | (src.getBytecodeValue() << 3) | dst.getBytecodeValue());
 	}
 
 	uint8_t InstructionMovRegReg::getBytecodeLength() const
 	{
-		return 3;
+		return src.getAccessBits() > 32 ? 3 : 2;
 	}
 
 	void InstructionMovRegReg::executeInVirtualMachine(VirtualMachine& vm) const

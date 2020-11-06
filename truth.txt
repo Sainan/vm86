@@ -12,20 +12,20 @@ C3                                            retn
 5F                                            pop     rdi
 5E                                            pop     rsi
 
-B0 00                                         mov     al, 0
-
 88 E8                                         mov     al, ch ; 11 101 000
-
-66 B8 01 00                                   mov     ax, 1
-
-B8 02 00 00 00                                mov     eax, 2
-
+88 CC                                         mov     ah, cl
+88 EC                                         mov     ah, ch
+89 C8                                         mov     eax, ecx
 48 89 C8                                      mov     rax, rcx ; 11 001 000
 48 89 C1                                      mov     rcx, rax ; 11 000 001
 48 89 CA                                      mov     rdx, rcx ; 11 001 010
 48 89 D1                                      mov     rcx, rdx ; 11 010 001
 
-48 C7 C0 00 00 00 00                          mov     rax, 0
+B0 00                                         mov     al, 0
+B4 00                                         mov     ah, 0
+66 B8 01 00                                   mov     ax, 1
+B8 02 00 00 00                                mov     eax, 2 ; B8 = 10111000
+48 C7 C0 00 00 00 00                          mov     rax, 0 ; C7C0 = 1100011111000000
 48 C7 C1 01 00 00 00                          mov     rcx, 1
 48 C7 C2 02 00 00 00                          mov     rdx, 2
 48 C7 C3 03 00 00 00                          mov     rbx, 3
@@ -40,7 +40,6 @@ B8 02 00 00 00                                mov     eax, 2
 48 C7 C5 FF FF FF FF                          mov     rbp, 0FFFFFFFFFFFFFFFFh
 48 C7 C6 FF FF FF FF                          mov     rsi, 0FFFFFFFFFFFFFFFFh
 48 C7 C7 FF FF FF FF                          mov     rdi, 0FFFFFFFFFFFFFFFFh
-
 48 B8 37 13 BE BA FE CA 37 13                 mov     rax, 1337CAFEBABE1337h
 48 B9 37 13 BE BA FE CA 37 13                 mov     rcx, 1337CAFEBABE1337h
 48 BA 37 13 BE BA FE CA 37 13                 mov     rdx, 1337CAFEBABE1337h
@@ -49,10 +48,35 @@ B8 02 00 00 00                                mov     eax, 2
 48 BE 37 13 BE BA FE CA 37 13                 mov     rsi, 1337CAFEBABE1337h
 48 BF 37 13 BE BA FE CA 37 13                 mov     rdi, 1337CAFEBABE1337h
 
-48 01 D1                                      add     rcx, rdx
+04 01                                         add     al, 1
+00 C8                                         add     al, cl
+80 C4 01                                      add     ah, 1
+00 EC                                         add     ah, ch
+66 83 C0 01                                   add     ax, 1
+66 01 C8                                      add     ax, cx
+83 C0 01                                      add     eax, 1
+01 C8                                         add     eax, ecx
+48 83 C0 01                                   add     rax, 1
 48 01 C8                                      add     rax, rcx
-48 01 D0                                      add     rax, rdx
-48 83 C0 03                                   add     rax, 3
 
-48 8D 05 00 00 00 00                          lea     rax, [rip]    ; 00 000 101
-48 8D 15 6D 23 02 00                          lea     rdx, ProcName ; 00 010 101
+2C 01                                         sub     al, 1
+28 C8                                         sub     al, cl
+80 EC 01                                      sub     ah, 1
+28 EC                                         sub     ah, ch
+66 83 E8 01                                   sub     ax, 1
+66 29 C8                                      sub     ax, cx
+83 E8 01                                      sub     eax, 1
+29 C8                                         sub     eax, ecx
+48 83 E8 01                                   sub     rax, 1
+48 29 C8                                      sub     rax, rcx
+
+FE C0                                         inc     al
+FE C4                                         inc     ah
+66 FF C0                                      inc     ax
+FF C0                                         inc     eax
+48 FF C0                                      inc     rax
+
+48 8D 05 00 00 00 00                          lea     rax, [rip]     ; 00 000 101
+48 8D 15 6D 23 02 00                          lea     rdx, ProcName  ; 00 010 101
+
+48 8D 04 11                                   lea     rax, [rcx+rdx] ; 010 000 010 001

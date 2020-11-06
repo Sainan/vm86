@@ -113,6 +113,11 @@ namespace vm86
 		return fromBytecode(bytecode, i);
 	}
 
+	std::unique_ptr<Instruction> Instruction::fromBytecode(const std::vector<uint8_t>& bytecode, std::vector<uint8_t>::const_iterator& i)
+	{
+		return fromBytecode(bytecode, i, false);
+	}
+
 	uint8_t safelyIncrement(std::vector<uint8_t>::const_iterator& i, const std::vector<uint8_t>::const_iterator& end)
 	{
 		if (++i == end)
@@ -124,26 +129,27 @@ namespace vm86
 
 #define NEXT_BYTE val = safelyIncrement(i, bytecode.end());
 
-	std::unique_ptr<Instruction> Instruction::fromBytecode(const std::vector<uint8_t>& bytecode, std::vector<uint8_t>::const_iterator& i)
+	std::unique_ptr<Instruction> Instruction::fromBytecode(const std::vector<uint8_t>& bytecode, std::vector<uint8_t>::const_iterator& i, const bool long_mode)
 	{
 		uint8_t val = *i;
 		if (val == 0x48)
 		{
 			NEXT_BYTE;
-			if (val == 0x89)
+			return fromBytecode(bytecode, i, true);
+		}
+		else if (val == 0x89)
+		{
+			NEXT_BYTE;
+			if (val & 0b11000000)
 			{
-				NEXT_BYTE;
-				if (val & 0b11000000)
-				{
-					return std::make_unique<InstructionMovRegReg>(Register((RegisterId)((val >> 3) & 0b111)), Register((RegisterId)(val & 0b111)));
-				}
+				return std::make_unique<InstructionMovRegReg>(Register((RegisterId)((val >> 3) & 0b111), long_mode ? REGACCS_64 : REGACCS_32), Register((RegisterId)(val & 0b111), long_mode ? REGACCS_64 : REGACCS_32));
 			}
 		}
-		if (val == 0xC3)
+		else if (val == 0xC3)
 		{
 			return std::make_unique<InstructionRetn>();
 		}
-		if ((val & 0x50) == 0x50)
+		else if ((val & 0x50) == 0x50)
 		{
 			if ((val & 0x58) == 0x58)
 			{

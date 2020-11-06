@@ -21,5 +21,8 @@ namespace vm86
 		[[nodiscard]] std::string getName() const;
 
 		[[nodiscard]] uint8_t getBytecodeValue() const;
+
+		[[nodiscard]] uint8_t getAccessBits() const;
+		void assertAccessBitsAreSameAs(Register& b);
 	};
 }

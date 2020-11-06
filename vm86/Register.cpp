@@ -226,4 +226,34 @@ namespace vm86
 		}
 		return id;
 	}
+
+	uint8_t Register::getAccessBits() const
+	{
+		switch (accs)
+		{
+		default:
+			throw std::domain_error(std::string("Invalid register access: ").append(std::to_string(accs)));
+
+		case REGACCS_64:
+			return 64;
+
+		case REGACCS_32:
+			return 32;
+			
+		case REGACCS_16:
+			return 16;
+
+		case REGACCS_HIGH8:
+		case REGACCS_LOW8:
+			return 8;
+		}
+	}
+
+	void Register::assertAccessBitsAreSameAs(Register& b)
+	{
+		if (getAccessBits() != b.getAccessBits())
+		{
+			throw std::logic_error(std::to_string(getAccessBits()).append("-bit ").append(getName()).append(" is not compatible with ").append(std::to_string(b.getAccessBits())).append("-bit ").append(b.getName()));
+		}
+	}
 }
