@@ -20,6 +20,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vm86 examples", "..\vm86 ex
 		{1D0F8C7C-2CFA-4796-8F50-1274A47C10C6} = {1D0F8C7C-2CFA-4796-8F50-1274A47C10C6}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23356012-D3A1-4776-9457-EDF8755FDCAE}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
