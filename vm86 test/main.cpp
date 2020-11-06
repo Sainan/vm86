@@ -40,15 +40,29 @@ std::vector<uint8_t> testAssemblyEndsInBytecode(const char* const bytecode_hex, 
 	std::vector<uint8_t> bytecode;
 	try
 	{
-		bytecode = Program::fromAssembly(assembly).getBytecode();
-		std::string gen_bytecode_hex = bytecodeToHexString(bytecode);
-		if (gen_bytecode_hex == bytecode_hex)
+		Program p = Program::fromAssembly(assembly);
+		// Assert bytecode is as expected
+		{
+			bytecode = p.getBytecode();
+			std::string gen_bytecode_hex = bytecodeToHexString(bytecode);
+			if (gen_bytecode_hex == bytecode_hex)
+			{
+				success_tally++;
+			}
+			else
+			{
+				std::cout << "'" << assembly << "' resulted in '" << gen_bytecode_hex << "', expected '" << bytecode_hex << "'" << std::endl;
+				error_tally++;
+			}
+		}
+		// Assert bytecode length is equal to actual bytecode length
+		if (p.getBytecodeLength() == bytecode.size())
 		{
 			success_tally++;
 		}
 		else
 		{
-			std::cout << "'" << assembly << "' resulted in '" << gen_bytecode_hex << "', expected '" << bytecode_hex << "'" << std::endl;
+			std::cout << "'" << assembly << "' resulted in '" << bytecode_hex << "', which is apparently " << p.getBytecodeLength() << " bytes and not " << bytecode.size() << std::endl;
 			error_tally++;
 		}
 	}
